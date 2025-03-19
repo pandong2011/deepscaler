@@ -12,7 +12,8 @@ setup(
         'pylatexenc',
         'sentence_transformers',
         'tabulate',
-        'flash_attn==2.7.3',
+        'antlr4-python3-runtime==4.9.*'
+        # 'flash_attn==2.7.3',
     ],
     classifiers=[
         'Programming Language :: Python :: 3',
