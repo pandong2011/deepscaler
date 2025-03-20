@@ -6,11 +6,12 @@ to evaluate model responses for various problem types, including math and coding
 from dataclasses import dataclass, field
 from enum import Enum
 
+
 @dataclass
 class RewardConfig:
     # Use LLM as ORM to evaluate correctness.
     use_math_orm: bool = False
-    
+
     # General reward constants.
     correct_reward: float = 1.0
     incorrect_reward: float = -1.0
@@ -69,6 +70,7 @@ class RewardFn:
     The __call__ method must be overridden to provide the functionality for evaluating
     the input and returning the corresponding reward output.
     """
+
     def __init__(self, config: RewardConfig):
         self.config = config
 

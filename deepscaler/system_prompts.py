@@ -182,8 +182,7 @@ $(\\rm ii)$ the closed broken line $C_1C_2...C_{96}C_1$ has a centre of symmetry
   A user will provide the problem and solution below. Only output your estimation of the difficulty of the problem, which is a number between 1-10, inclusive.
   Important: You should only output the difficulty from 1-10, not the solution of the problem. OUTPUT ONLY ONE NUMBER, not multiple numbers."""
 
-
-#============General Data Processing Prompts================#
+# ============General Data Processing Prompts================#
 # For checking if a math problem is a proof.
 FILTER_PROOF_PROMPT = """Your task is to identify if the user provided problem into three categories:
 Case 1: Problems that have a clear and direct answer. Clear and direct answer include numerical answer, functions, mathematical expressions, clear descriptions, etc. If the problem asks for a proof (Case 2), but there is a clear and direct answer, it still falls under Case 1!
@@ -236,7 +235,7 @@ EXTRACT_SOLUTION_PROMPT = """You are an agent tasked with extracting the final s
 Process each input rigorously, think and analyze deeply, closely follow the instructions above, and generate the required LaTeX output.
 """
 
-#============Data Processing Multiple ChoicePrompts================#
+# ============Data Processing Multiple ChoicePrompts================#
 
 REFINE_AMC_PROMPT = """You are tasked with fixing the latex in the user provided problem. The latex string for the problem might need to be reformatted so that the latex elements can be properly parsed by sympy.
 

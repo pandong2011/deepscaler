@@ -38,6 +38,7 @@ def make_map_fn(split: str):
     Returns:
         Function that processes individual dataset examples
     """
+
     def process_fn(example: Dict[str, Any], idx: int) -> Optional[Dict[str, Any]]:
         question = example.pop('problem')
         instruction = "Let's think step by step and output the final answer within \\boxed{}."
@@ -61,28 +62,30 @@ def make_map_fn(split: str):
             }
         }
         return data
+
     return process_fn
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process datasets for DeepScaler training')
     parser.add_argument('--local_dir', default=os.path.expanduser('~/deepscaler/data'),
-                       help='Local directory to save processed datasets')
+                        help='Local directory to save processed datasets')
     parser.add_argument('--hdfs_dir', default=None,
-                       help='Optional HDFS directory to copy datasets to')
+                        help='Optional HDFS directory to copy datasets to')
     args = parser.parse_args()
 
     local_dir = args.local_dir
     hdfs_dir = args.hdfs_dir
-    
+
     # Make local directory if it doesn't exist
     makedirs(local_dir)
 
     # Initialize datasets
     train_datasets = [TrainDataset.DEEPSCALER]
     train_dataset = load_dataset(train_datasets[0])
-    test_datasets = [TestDataset.AIME, TestDataset.AMC, TestDataset.MATH, TestDataset.MINERVA, TestDataset.OLYMPIAD_BENCH]
-    
+    test_datasets = [TestDataset.AIME, TestDataset.AMC, TestDataset.MATH, TestDataset.MINERVA,
+                     TestDataset.OLYMPIAD_BENCH]
+
     test_datasets_data = [load_dataset(d) for d in test_datasets]
 
     # Process training data

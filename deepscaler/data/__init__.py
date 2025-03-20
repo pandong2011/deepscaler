@@ -10,9 +10,11 @@ Exports:
 """
 
 from deepscaler.data.dataset_types import TrainDataset, TestDataset, Dataset
+from deepscaler.data.utils import load_dataset
 
 __all__ = [
     'TrainDataset',
-    'TestDataset', 
+    'TestDataset',
     'Dataset',
+    'load_dataset'
 ]

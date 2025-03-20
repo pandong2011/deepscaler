@@ -53,4 +53,5 @@ def load_dataset(dataset: Dataset) -> List[Dict[str, Any]]:
 
 
 if __name__ == '__main__':
-    load_dataset(TrainDataset.NUMINA_OLYMPIAD)
+    print(len(load_dataset(TrainDataset.DEEPSCALER)))
+    print(load_dataset(TrainDataset.DEEPSCALER)[0])

@@ -24,6 +24,7 @@ def mathd_normalize_answer(answer: Optional[str]) -> Optional[str]:
     except:
         return answer
 
+
 def _strip_string(string):
     def _fix_fracs(string):
         substrs = string.split("\\frac")
@@ -56,7 +57,6 @@ def _strip_string(string):
         string = new_str
         return string
 
-
     def _fix_a_slash_b(string):
         if len(string.split("/")) != 2:
             return string
@@ -71,7 +71,6 @@ def _strip_string(string):
         except:
             return string
 
-
     def _remove_right_units(string):
         # "\\text{ " only ever occurs (at least in the val set) when describing units
         if "\\text{ " in string:
@@ -80,7 +79,6 @@ def _strip_string(string):
             return splits[0]
         else:
             return string
-
 
     def _fix_sqrt(string):
         if "\\sqrt" not in string:
@@ -95,6 +93,7 @@ def _strip_string(string):
                 new_substr = "\\sqrt" + split
             new_string += new_substr
         return new_string
+
     # linebreaks
     string = string.replace("\n", "")
     # print(string)
@@ -176,8 +175,8 @@ def _sympy_parse(expr: str):
     return sympy_parser.parse_expr(
         py_expr,
         transformations=(
-            sympy_parser.standard_transformations
-            + (sympy_parser.implicit_multiplication_application,)
+                sympy_parser.standard_transformations
+                + (sympy_parser.implicit_multiplication_application,)
         ),
     )
 
@@ -373,10 +372,10 @@ def split_tuple(expr: str):
     if len(expr) == 0:
         return []
     if (
-        len(expr) > 2
-        and expr[0] in TUPLE_CHARS
-        and expr[-1] in TUPLE_CHARS
-        and all([ch not in expr[1:-1] for ch in TUPLE_CHARS])
+            len(expr) > 2
+            and expr[0] in TUPLE_CHARS
+            and expr[-1] in TUPLE_CHARS
+            and all([ch not in expr[1:-1] for ch in TUPLE_CHARS])
     ):
         elems = [elem.strip() for elem in expr[1:-1].split(",")]
     else:
@@ -403,13 +402,14 @@ def last_boxed_only_string(string):
                 right_brace_idx = i
                 break
         i += 1
-    
+
     if right_brace_idx == None:
         retval = None
     else:
         retval = string[idx:right_brace_idx + 1]
-    
+
     return retval
+
 
 def remove_boxed(s):
     left = "\\boxed{"
@@ -426,6 +426,7 @@ def extract_boxed_answer(solution: str) -> str:
     solution = last_boxed_only_string(solution)
     solution = remove_boxed(solution)
     return solution
+
 
 def grade_answer_sympy(given_answer: str, ground_truth: str) -> bool:
     ground_truth_normalized = _normalize(ground_truth)
@@ -444,8 +445,8 @@ def grade_answer_sympy(given_answer: str, ground_truth: str) -> bool:
     given_elems = split_tuple(given_normalized)
 
     if len(ground_truth_elems) > 1 and (
-        ground_truth_normalized[0] != given_normalized[0]
-        or ground_truth_normalized[-1] != given_normalized[-1]
+            ground_truth_normalized[0] != given_normalized[0]
+            or ground_truth_normalized[-1] != given_normalized[-1]
     ):
         is_correct = False
     elif len(ground_truth_elems) != len(given_elems):
@@ -466,6 +467,7 @@ def grade_answer_sympy(given_answer: str, ground_truth: str) -> bool:
 
     return is_correct
 
+
 def grade_answer_mathd(given_answer: str, ground_truth: str) -> bool:
     ground_truth_normalized_mathd = mathd_normalize_answer(ground_truth)
     given_answer_normalized_mathd = mathd_normalize_answer(given_answer)
@@ -475,10 +477,11 @@ def grade_answer_mathd(given_answer: str, ground_truth: str) -> bool:
         return True
     return False
 
+
 def extract_answer(passage: str) -> str:
     if "\\boxed" in passage:
         return extract_boxed_answer(passage)
-    return None
+
 
 def grade_answer_verl(solution_str, ground_truth):
     if not ground_truth:
@@ -489,4 +492,4 @@ def grade_answer_verl(solution_str, ground_truth):
     if given_answer is None:
         return False
     return grade_answer_mathd(given_answer, ground_truth) \
-        or grade_answer_sympy(given_answer, ground_truth)
+           or grade_answer_sympy(given_answer, ground_truth)

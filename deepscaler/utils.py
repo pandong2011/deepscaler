@@ -22,12 +22,12 @@ from deepscaler.globals import GCP_PROJECT_ID, GCP_LOCATION, GEMINI_MODEL, OAI_R
 
 
 def call_oai_rm_llm(
-    prompt: str,
-    system_prompt: str,
-    n: int = 1,
-    temperature: float = 1.0,
-    model_id: str = OAI_RM_MODEL,
-    retry_count: int = 1000000000
+        prompt: str,
+        system_prompt: str,
+        n: int = 1,
+        temperature: float = 1.0,
+        model_id: str = OAI_RM_MODEL,
+        retry_count: int = 1000000000
 ) -> Union[str, List[str]]:
     """Call OpenAI API with retry logic.
 
@@ -73,14 +73,14 @@ def call_oai_rm_llm(
 
 
 def call_gemini_llm(
-    prompt: str,
-    system_prompt: str,
-    n: int = 1,
-    temperature: float = 1.0,
-    project_id: str = GCP_PROJECT_ID,
-    location: str = GCP_LOCATION,
-    model_id: str = GEMINI_MODEL,
-    retry_count: int = 1000000000
+        prompt: str,
+        system_prompt: str,
+        n: int = 1,
+        temperature: float = 1.0,
+        project_id: str = GCP_PROJECT_ID,
+        location: str = GCP_LOCATION,
+        model_id: str = GEMINI_MODEL,
+        retry_count: int = 1000000000
 ) -> Union[str, List[str]]:
     """Call Gemini LLM on Vertex AI with retry logic.
 
